@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class='row'>
+  <div class='col-12'>
+    <h2>{{object.name}}</h2>
+    <p>Manager: {{ object.manager|capfirst }}
+    {% if user.is_authenticated %}
+      {% if user == object.manager %}
+        <a class="float-right" href="{% url 'player_new' %}">Add Player</a>
+      {% endif %}
+    {% endif %}
+    </p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-12'>
+    <p>Location: {{object.location}}</p>
+    {% if object.image %}
+        <img src='{{ object.image.url }}' class='img-fluid float-right' />
+      {% endif %}
+    </div>
+  </div>
+  <h3>Players</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Goals Scored</th>
+      <th scope="col">Assists</th>
+      <th scope="col">clean_sheets</th>
+      {% if user.is_authenticated %}
+        {% if user == object.manager %}
+          <th scope='col'> Add/Remove </th>
+        {% endif %}
+      {% endif %}
+
+    </tr>
+    <tbody>
+    {% for player in players %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><a href="{% url 'player_detail' player.pk %}">{{player.name}}</a></td>
+      <td>{{player.goals}}</td>
+      <td>{{player.assists}}</td>
+      <td>{{player.clean_sheets}}</td>
+      {% if user.is_authenticated %}
+        {% if user == object.manager %}
+          <td>
+            <a class='text-primary float-left' href="{% url 'player_edit' player.pk %}">Edit</a>
+            <a class='text-danger float-right' href="{% url 'player_delete' player.pk %}">Delete</a>
+          </td>
+        {% endif %}
+      {% endif %}
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% if user.is_authenticated %}
+  {% if user == object.manager %}
+    <p><a href="{% url 'club_edit' club.pk %}">Edit Club</a>
+  {% endif %}
+{% endif %}
+
+</p>
+<p> Back to <a href="{% url 'club_list' %}">Clubs Page</a>.</p>
+{% endblock content %}

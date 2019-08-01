@@ -1,0 +1,34 @@
+<!-- templates/signup.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock title %}
+{% block base_head %}
+<link rel="stylesheet" href="{% static 'css/reg.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<h2>Sign Up</h2>
+
+<div class="form" style="padding:20">
+                <div class="note">
+                    <p>Register to our website</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+
+
+                            <form method='post'>
+                              {% csrf_token %}
+                              {{ form.as_p }}
+
+
+                              <button type="submit" class="btnSubmit">Sign up</button>
+                            </form>
+                          </div>
+                    </div>
+                </div>
+</div>
+{% endblock content %}

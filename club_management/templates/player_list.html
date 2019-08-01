@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Players{% endblock title %}
+{% block base_head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light">
+<h2 class="display-3"> Top Scorers </h2>
+  <div class="row">
+
+        {% for player in top %}
+          <div class='col-md-6 col-sm-12 col-lg-3' style="padding-bottom:40px">
+          <div class="card" style="width: 14rem; ">
+
+							<img class="card-img-top" src="{{player.image.url}}" alt="">
+              <div class="card-body">
+
+  							<p class="font-weight-bold">{{player.name}}</p>
+  							<p class="item-price">Goals: {{player.goals}}</p>
+                <p class="item-price">Assists: {{player.assists}}</p>
+  							<a href="{% url 'player_detail' player.pk %}" class="btn btn-primary">View</a>
+
+              </div>
+          </div>
+          </div>
+        {% endfor %}
+</div>
+</div>
+<br/>
+<hr/>
+<br/>
+<br/>
+
+<h4 class="display-2">All Players</h4>
+
+  {% for player in object_list %}
+
+    <div class="card">
+      <div class="card-header">
+        <span class='text-weight-bold'> {{forloop.counter}}.</span>
+        <a class="text-info" href="{% url 'player_detail' player.pk %}">
+        <span class="font-weight-bold">{{player.name}} </span>
+        </a>
+        <span class="text-muted">from </span>
+        <a class="text-info" href="{% url 'club_detail' player.club.pk %}">{{ player.club}}</a>
+        <span class="text-info float-right">Goals: {{player.goals}} </span>
+      </div>
+    </div>
+
+      <!--
+      <div class="card-footer text-center text-muted">
+        <a href="{% url 'player_edit' player.pk %}">Edit</a> |
+        <a href="{% url 'player_delete' player.pk %}">Delete</a>
+      </div>
+    </div>
+    -->
+    <br />
+
+  {% endfor %}
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

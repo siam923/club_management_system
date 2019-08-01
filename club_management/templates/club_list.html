@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Clubs{% endblock title %}
+
+{% block content %}
+<br/>
+<br/>
+<h3 class="display-4"> All Clubs</h3>
+<br/>
+<br/>
+  {% for club in clubs %}
+
+    <div class="card">
+      <div class="card-header">
+        <!-- <span class="font-weight-bold">{{forloop.counter}}.</span> -->
+        <span><img src="{{club.image.url}}" style="height:30px; width:30px; "></span>
+        <a href="{% url 'club_detail' club.pk %}">
+        <span class="font-weight-bold">{{club.name}}</span>
+        </a>
+        <span class="text-success font-weight-bold"> Manager: {{ club.manager}}</span>
+        <span class="float-right text-info"> Points: {{ club.points }}</span>
+      </div>
+      <!-- <div class="card-footer text-center text-muted">
+        <a href="{% url 'club_edit' club.pk %}">Edit</a> |
+        <a href="{% url 'club_delete' club.pk %}">Delete</a>
+      </div>
+    </div> -->
+    <br />
+
+  {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class='row'>
+    {% if query %}
+    <div class='col-12'>
+      Searched for <b>{{ query }}</b>
+      <hr/>
+    </div>
+    {% else %}
+    <div class='col-12 col-md-6 mx-auto py-5'>
+      {% include 'search/snippets/search-form.html' %}
+    </div>
+    <div class='col-12'>
+      <hr>
+      <h2>Featured Players</h2>
+    </div>
+    {% endif %}
+  </div>
+
+
+    <br/>
+
+      {% for player in object_list %}
+      <div class="card">
+        <div class="card-header">
+          <span class="font-weight-bold ">{{forloop.counter}}.</span>
+          <a class="text-dark" href="{% url 'player_detail' player.pk %}">
+          {% if player.image %}
+
+          <span><img class="rounded-circle" src="{{player.image.url}}" style="height:120px; width:120px; margin-right:20px;margin-left:20px; "></span>
+
+          {% endif %}
+          <span class="font-weight-bold ">{{player.name}}</span>
+          </a>
+          <span class="text-muted"> Playes in:
+            <a href="{% url 'club_detail' player.club.pk %}">
+            {{ player.club}}</a></span>
+            <br>
+            <br>
+        </div>
+      </div>
+      {% endfor %}
+
+
+
+{% endblock %}

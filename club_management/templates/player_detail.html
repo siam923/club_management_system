@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class='row'>
+  <div class='col-6 col-md-6'>
+    <h2>{{object.name}}</h2>
+    <p>Club: <a href="{% url 'club_detail' player.club.pk %}">{{ object.club }}</a></p>
+
+    <p>Height: {{ object.height }}ft</p>
+    <p>Goals Scored: {{object.goals}}</p>
+    <p>Assists: {{object.assists}}</p>
+    <p>Clean Sheets: {{object.clean_sheets}}</p>
+    </div>
+    <div class='col-4'>
+    {% if object.image %}
+        <p><img src='{{ object.image.url }}' class='img-fluid rounded float-left' /></p>
+      {% endif %}
+    </div>
+  </div>
+
+<!-- <p><a href="{% url 'player_edit' player.pk %}">Edit</a> -->
+</p>
+<p> Back to <a href="{% url 'player_list' %}">Players Page</a>.</p>
+{% endblock content %}

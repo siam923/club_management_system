@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<main role="main">
+
+<!-- Slider -->
+{% include 'base/slider.html' %}
+
+<!-- end_slider -->
+<br/>
+<br/>
+<br/>
+<hr/>
+
+<div class="container marketing">
+<!-- top teams -->
+
+<h3 class='display-4'> Top Scorers  </h3>
+<br/>
+<br/>
+  <div class="row bg-light">
+
+    {% for top in tops %}
+    <div class="col-lg-4">
+      <img class="rounded-circle" src="{{top.image.url}}" alt="Generic placeholder image" width="140" height="140">
+      <h2>{{top.name}}</h2>
+      <p>Goals Scored: {{top.goals}}</p>
+      <p><a class="btn btn-secondary" href="{% url 'player_detail' top.pk %}" role="button">View details »</a></p>
+    </div><!-- /.col-lg-4 -->
+    {% endfor %}
+  </div><!-- /.row -->
+  <br/>
+  <br/>
+  <br/>
+
+  <!-- end top team -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading display-4">Always Stay Updated <span class="text-muted"></span></h2>
+      <p class="lead">Update a new match</p>
+      <a class="btn btn-primary" href="{% url 'match_new' %}" role="button">Add Match »</a>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto" src="{% static 'img/vs.jpg' %}" alt="500x500" style="width: 500px; height: 500px;"  data-holder-rendered="true">
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <hr class="featurette-divider">
+
+  <div class="container-fluid bg-light">
+  <h2 class="display-3"> Top Teams </h2>
+    <div class="row">
+
+          {% for club in top_clubs %}
+            <div class='col-md-4' style="padding-bottom:40px">
+            <div class="card" style="width: 16rem; ">
+
+  							<img class="card-img-top" src="{{club.image.url}}" alt="">
+                <div class="card-body">
+
+    							<p class="font-weight-bold">{{club.name}}</p>
+    							<p class="item-price">points: {{club.points}}</p>
+    							<a href="{% url 'club_detail' club.pk %}" class="btn btn-primary">View</a>
+
+                </div>
+            </div>
+            </div>
+          {% endfor %}
+  </div>
+  </div>
+  <br/>
+  <hr class="featurette-divider">
+  <br/>
+  <br/>
+
+</div>
+
+</main>
+
+
+
+<div class="jumbotron">
+  <h1 class="display-4"> Explore all Clubs and Managers</h1>
+  <p class="lead">
+    <a class="btn btn-info btn-md" href="{% url 'club_list' %}" role="button">View All Clubs</a>
+  </p>
+</div>
+
+{% endblock content %}
